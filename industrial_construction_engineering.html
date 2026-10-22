@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО «Строительная Сибирская Компания» (ССК) — Промышленное строительство</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ssk: {
+                            blue: '#1e3a8a',
+                            navy: '#1e293b',
+                            dark: '#0f172a',
+                            yellow: '#f59e0b',
+                            amber: '#d97706',
+                            light: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 58, 138, 0.88) 60%, rgba(15, 23, 42, 0.85) 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-500 selection:text-white" x-data="sskApp()">
+
+    <!-- Top Info Bar -->
+    <div class="bg-slate-950 text-slate-300 text-xs py-2 px-4 sm:px-8 border-b border-slate-800 hidden md:block">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span>г. Новосибирск, ул. Сибирская, д. 57, офис 402</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span>Пн-Пт: 08:00 - 19:00 (НСК)</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="mailto:info@ssk-sib.ru" class="flex items-center space-x-2 hover:text-amber-400 transition">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span>info@ssk-sib.ru</span>
+                </a>
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">
+                    <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                    Член СРО «Сибирский Строитель»
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-blue-950/95 backdrop-blur-md text-white border-b border-blue-900/50 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Company Logo Vector -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="relative w-14 h-14 shrink-0 transition group-hover:scale-105">
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                            <!-- Circular Outer Ring -->
+                            <circle cx="100" cy="90" r="75" fill="#1e3a8a" stroke="#ffffff" stroke-width="4"/>
+                            <!-- Inner White Circle -->
+                            <circle cx="100" cy="90" r="58" fill="#ffffff"/>
+                            <!-- Text Arc Path Approximation / Circular Text -->
+                            <path id="textPath" d="M 35,90 A 65,65 0 1,1 165,90" fill="none"/>
+                            <text font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">
+                                <textPath href="#textPath" startOffset="50%">СТРОИТЕЛЬНАЯ СИБИРСКАЯ КОМПАНИЯ</textPath>
+                            </text>
+                            <!-- Factory Building SVG -->
+                            <path d="M55,115 L55,85 L80,85 L80,75 L90,75 L90,85 L115,85 L115,115 Z" fill="#f59e0b"/>
+                            <rect x="68" y="60" width="6" height="25" fill="#f59e0b"/>
+                            <rect x="68" y="60" width="6" height="5" fill="#ef4444"/>
+                            <rect x="80" y="60" width="6" height="25" fill="#f59e0b"/>
+                            <rect x="80" y="60" width="6" height="5" fill="#ef4444"/>
+                            <path d="M55,100 L145,100 L145,115 L55,115 Z" fill="#f59e0b"/>
+                            <path d="M55,110 L145,110 L145,118 L55,118 Z" fill="#0f172a"/>
+                            <!-- Crane Vector -->
+                            <path d="M100,85 L135,45 M135,45 L155,45 M135,45 L135,85 M100,55 L150,55 M145,55 L145,68" stroke="#0f172a" stroke-width="2.5" fill="none"/>
+                            <!-- Bottom SSK Banner Badge -->
+                            <path d="M30,140 L170,140 L160,178 L40,178 Z" fill="#1e3a8a" stroke="#ffffff" stroke-width="2"/>
+                            <text x="100" y="168" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="sans-serif" letter-spacing="3">ССК</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-black text-lg sm:text-xl tracking-tight text-white uppercase flex items-center gap-1.5 leading-none">
+                            ООО «<span class="text-amber-400">ССК</span>»
+                        </div>
+                        <div class="text-[10px] text-blue-200 tracking-wider uppercase font-semibold mt-1">Строительная Сибирская Компания</div>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-7 font-medium text-sm">
+                    <a href="#about" class="text-slate-100 hover:text-amber-400 transition py-2">О компании</a>
+                    <a href="#services" class="text-slate-100 hover:text-amber-400 transition py-2">Услуги</a>
+                    <a href="#projects" class="text-slate-100 hover:text-amber-400 transition py-2">Объекты</a>
+                    <a href="#calculator" class="text-slate-100 hover:text-amber-400 transition py-2">Калькулятор</a>
+                    <a href="#sro" class="text-slate-100 hover:text-amber-400 transition py-2">СРО и Лицензии</a>
+                    <a href="#contacts" class="text-slate-100 hover:text-amber-400 transition py-2">Контакты</a>
+                </nav>
+
+                <!-- Phone CTA & Callback Button -->
+                <div class="hidden xl:flex items-center space-x-5">
+                    <div class="text-right">
+                        <a href="tel:+73832304590" class="text-lg font-extrabold text-white hover:text-amber-400 transition block leading-tight">
+                            +7 (383) 230-45-90
+                        </a>
+                        <span class="text-xs text-blue-200">Отдел генподряда</span>
+                    </div>
+                    <button @click="openModal('Заказать обратный звонок')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-lg shadow-md hover:shadow-amber-500/20 transition flex items-center space-x-2 text-sm">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i>
+                        <span>Заказать звонок</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden items-center space-x-3">
+                    <a href="tel:+73832304590" class="p-2 bg-blue-900 text-amber-400 rounded-lg">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </a>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-slate-200 hover:text-white focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7" x-show="!mobileMenuOpen"></i>
+                        <i data-lucide="x" class="w-7 h-7" x-show="mobileMenuOpen"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div x-show="mobileMenuOpen" x-transition class="lg:hidden bg-blue-950 border-b border-blue-900 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">О компании</a>
+            <a href="#services" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">Услуги</a>
+            <a href="#projects" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">Объекты</a>
+            <a href="#calculator" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">Калькулятор</a>
+            <a href="#sro" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">СРО и Лицензии</a>
+            <a href="#contacts" @click="mobileMenuOpen = false" class="block py-2 text-slate-100 font-medium hover:text-amber-400">Контакты</a>
+            <div class="pt-4 border-t border-blue-900 flex flex-col gap-3">
+                <a href="tel:+73832304590" class="text-center py-2 text-lg font-bold text-amber-400">
+                    +7 (383) 230-45-90
+                </a>
+                <button @click="openModal('Заказать звонок'); mobileMenuOpen = false;" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg text-center">
+                    Заказать звонок
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-slate-950 text-white min-h-[85vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=2000&q=80" 
+                 alt="Строительная Сибирская Компания" 
+                 class="w-full h-full object-cover object-center transform scale-105"
+                 onerror="this.src='https://placehold.co/1920x1080/1e3a8a/ffffff?text=SSK+Construction'">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div class="max-w-3xl">
+                <!-- Badge -->
+                <div class="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 mb-6 text-amber-400 text-sm font-semibold backdrop-blur-sm">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-amber-500"></i>
+                    <span>Генеральный подрядчик полного цикла</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight mb-6">
+                    Промышленное и энергетическое строительство <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-500">любой сложности</span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed font-normal">
+                    ООО «Строительная Сибирская Компания» (ССК) — надежный генеральный подрядчик в сфере строительства промышленных зданий, монтажа сложных металлоконструкций и технологического оборудования в Сибири и по всей России.
+                </p>
+
+                <!-- CTA Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 mb-14">
+                    <a href="#calculator" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center justify-center space-x-3 text-base">
+                        <span>Рассчитать стоимость проекта</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#projects" class="bg-blue-900/80 hover:bg-blue-900 text-white font-semibold px-8 py-4 rounded-xl border border-blue-700/60 backdrop-blur-md transition flex items-center justify-center space-x-2 text-base">
+                        <i data-lucide="building" class="w-5 h-5 text-amber-400"></i>
+                        <span>Наши объекты</span>
+                    </a>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-slate-800/80 pt-8">
+                    <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">15+ лет</div>
+                        <div class="text-xs text-slate-400 mt-1">Опыта строительного инжиниринга</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">250+</div>
+                        <div class="text-xs text-slate-400 mt-1">Сданных промышленных объектов</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">СРО / ISO</div>
+                        <div class="text-xs text-slate-400 mt-1">Полный пакет допусков и лицензий</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1">Соблюдение сроков договора</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Company / О компании -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-blue-900 font-bold uppercase tracking-wider text-xs mb-3">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>О компании ООО «ССК»</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Строительная Сибирская Компания — Сила и Надежность Сибири
+                    </h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        ООО «Строительная Сибирская Компания» (аббревиатура ССК) ведет свою историю с создания мощной инженерно-производственной структуры, ориентированной на реализацию масштабных задач промышленной и энергетической инфраструктуры.
+                    </p>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Компания располагает собственным инженерным центром, материально-технической базой, автопарком тяжелой специализированной техники и современным парком сварочно-монтажного оборудования.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+                        <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="p-2.5 bg-blue-900 text-amber-400 rounded-lg shrink-0">
+                                <i data-lucide="hard-hat" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Безопасность труда</h4>
+                                <p class="text-xs text-slate-500">Стандарты охраны труда ISO 45001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="p-2.5 bg-blue-900 text-amber-400 rounded-lg shrink-0">
+                                <i data-lucide="wrench" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Собственный автопарк</h4>
+                                <p class="text-xs text-slate-500">Более 50 единиц спецтехники</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <button @click="openModal('Консультация с главным инженером ССК')" class="bg-blue-900 hover:bg-blue-950 text-white font-bold px-6 py-3 rounded-xl transition text-sm">
+                            Связаться с руководством
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visual Image Card with Logo Stamp -->
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" 
+                             alt="Строительный объект ССК" 
+                             class="w-full h-[480px] object-cover"
+                             onerror="this.src='https://placehold.co/800x600/1e3a8a/ffffff?text=SSK+Site'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-transparent to-transparent"></div>
+                        
+                        <div class="absolute bottom-6 left-6 right-6 p-6 bg-slate-900/95 backdrop-blur-md rounded-xl text-white border border-slate-700 flex items-center justify-between">
+                            <div>
+                                <div class="text-amber-400 text-xs font-bold uppercase tracking-wider">Генеральный подрядчик</div>
+                                <div class="text-lg font-bold mt-0.5">ООО «Строительная Сибирская Компания»</div>
+                            </div>
+                            <div class="w-12 h-12 bg-amber-500 text-slate-950 font-black rounded-lg flex items-center justify-center text-sm">
+                                ССК
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid / Услуги -->
+    <section id="services" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 text-amber-500 font-bold uppercase tracking-wider text-xs mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>Услуги генподряда</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                    Комплексные инжиниринговые решения
+                </h2>
+                <p class="text-slate-400 mt-4 text-sm sm:text-base">
+                    Осуществляем полный спектр строительно-монтажных и пусконаладочных работ на объектах промышленного назначения.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-7 hover:border-amber-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-900/60 text-amber-400 border border-blue-700/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+                            <i data-lucide="factory" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Промышленное строительство</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Возведение производственных комплексов, цехов, складов, заговков и ангаров «под ключ» по стандартам ГОСТ и СНиП.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Земляные и монолитные работы</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Устройство фундаментов глубокого заложения</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Монтаж сэндвич-панелей и кровли</li>
+                        </ul>
+                    </div>
+                    <button @click="openModal('Промышленное строительство')" class="w-full py-3 rounded-lg bg-blue-900/80 hover:bg-amber-500 hover:text-slate-950 font-bold text-xs text-white transition text-center">
+                        Заказать расчет
+                    </button>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-7 hover:border-amber-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-900/60 text-amber-400 border border-blue-700/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+                            <i data-lucide="component" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Монтаж металлоконструкций</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Монтаж строительных и технологических металлоконструкций любой категории сложности и тоннажа.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Каркасы зданий, фермы, балки</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Высотный монтаж с привлечением кранов</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Ультразвуковой контроль швов</li>
+                        </ul>
+                    </div>
+                    <button @click="openModal('Монтаж металлоконструкций')" class="w-full py-3 rounded-lg bg-blue-900/80 hover:bg-amber-500 hover:text-slate-950 font-bold text-xs text-white transition text-center">
+                        Заказать расчет
+                    </button>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-7 hover:border-amber-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-900/60 text-amber-400 border border-blue-700/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+                            <i data-lucide="zap" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Энергетические объекты</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Строительство котельных, подстанций, кабельных и эстакадных трасс, тепловых и технологических сетей.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300 mb-6">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Блочно-модульные котельные</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Подстанции высоковольтные</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0"></i> Пусконаладка систем КИПиА</li>
+                        </ul>
+                    </div>
+                    <button @click="openModal('Энергетические объекты')" class="w-full py-3 rounded-lg bg-blue-900/80 hover:bg-amber-500 hover:text-slate-950 font-bold text-xs text-white transition text-center">
+                        Заказать расчет
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Completed Projects / Наши объекты -->
+    <section id="projects" class="py-20 bg-slate-100" x-data="{ filter: 'all' }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-blue-900 font-bold uppercase tracking-wider text-xs mb-3">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>Портфолио проектов</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                        Реализованные объекты ООО «ССК»
+                    </h2>
+                </div>
+
+                <!-- Filters -->
+                <div class="mt-6 md:mt-0 flex flex-wrap gap-2">
+                    <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-blue-900 text-white' : 'bg-white text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm">Все объекты</button>
+                    <button @click="filter = 'industry'" :class="filter === 'industry' ? 'bg-blue-900 text-white' : 'bg-white text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm">Заводы и Цеха</button>
+                    <button @click="filter = 'energy'" :class="filter === 'energy' ? 'bg-blue-900 text-white' : 'bg-white text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm">Энергетика</button>
+                    <button @click="filter = 'steel'" :class="filter === 'steel' ? 'bg-blue-900 text-white' : 'bg-white text-slate-700 hover:bg-slate-200'" class="px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm">Металлоконструкции</button>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div x-show="filter === 'all' || filter === 'industry'" class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80" alt="Цех обработки" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-bold text-xs px-3 py-1 rounded-full">Промышленность</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Производственный комплекс мехобработки</h3>
+                            <p class="text-xs text-slate-500 mb-4 flex items-center">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 mr-1"></i> г. Новосибирск, 18 500 м²
+                            </p>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Строительство производственного корпуса, устройство монолитных фундаментов под тяжелое оборудование.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <span class="text-slate-500 font-semibold">Срок: 11 месяцев</span>
+                        <button @click="openModal('Детали объекта: Производственный комплекс')" class="text-blue-900 font-bold hover:text-amber-600">Подробнее →</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div x-show="filter === 'all' || filter === 'energy'" class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="Котельная" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-bold text-xs px-3 py-1 rounded-full">Энергетика</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Блочно-модульная котельная 80 МВт</h3>
+                            <p class="text-xs text-slate-500 mb-4 flex items-center">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 mr-1"></i> Кемеровская область
+                            </p>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Генподряд по поставке, монтажу и пусконаладке котельного оборудования и газовой инфраструктуры.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <span class="text-slate-500 font-semibold">Мощность: 80 МВт</span>
+                        <button @click="openModal('Детали объекта: Котельная 80МВт')" class="text-blue-900 font-bold hover:text-amber-600">Подробнее →</button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div x-show="filter === 'all' || filter === 'steel'" class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80" alt="Металлоконструкции" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-bold text-xs px-3 py-1 rounded-full">Металлоконструкции</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Складской хаб металлопроката</h3>
+                            <p class="text-xs text-slate-500 mb-4 flex items-center">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500 mr-1"></i> г. Красноярск, 24 000 м²
+                            </p>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Изготовление и монтаж 2 900 тонн несущих стальных металлоконструкций и кровельных систем.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <span class="text-slate-500 font-semibold">Объем: 2 900 тонн</span>
+                        <button @click="openModal('Детали объекта: Складской хаб')" class="text-blue-900 font-bold hover:text-amber-600">Подробнее →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Calculator / Интерактивный калькулятор -->
+    <section id="calculator" class="py-20 bg-slate-950 text-white relative" x-data="calculator()">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-flex items-center space-x-2 text-amber-500 font-bold uppercase tracking-wider text-xs mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>Онлайн калькулятор</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">
+                    Расчет стоимости строительных работ
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">
+                    Рассчитайте предварительный бюджет вашего проекта в ООО «ССК»
+                </p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Type -->
+                    <div>
+                        <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">1. Тип объекта</label>
+                        <select x-model.number="pricePerM2" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                            <option value="19000">Промышленный завод / цех</option>
+                            <option value="23000">Энергетический объект</option>
+                            <option value="16000">Складской комплекс</option>
+                            <option value="21000">Ангар из металлоконструкций</option>
+                        </select>
+                    </div>
+
+                    <!-- Area Slider -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-bold text-amber-400 uppercase tracking-wider">2. Площадь (м²)</label>
+                            <span class="text-amber-400 font-bold text-sm" x-text="area.toLocaleString('ru-RU') + ' м²'"></span>
+                        </div>
+                        <input type="range" min="300" max="25000" step="100" x-model.number="area" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500 mt-3">
+                    </div>
+
+                    <!-- Options -->
+                    <div>
+                        <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">3. Доп. услуги</label>
+                        <select x-model.number="extraCoef" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                            <option value="1">Только строительство (по ТЗ)</option>
+                            <option value="1.15">Строительство + Разработка РД</option>
+                            <option value="1.3">Полный EPC-цикл (ПНР + Сети)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <div class="text-xs text-slate-400 uppercase font-semibold">Предварительная стоимость объекта:</div>
+                        <div class="text-2xl sm:text-4xl font-black text-amber-400 mt-1" x-text="totalCost.toLocaleString('ru-RU') + ' ₽'"></div>
+                        <div class="text-[11px] text-slate-500 mt-1">*Расчет не является публичной офертой</div>
+                    </div>
+
+                    <button @click="openModal('Получить детальную смету на ' + totalCost.toLocaleString('ru-RU') + ' ₽')" class="w-full md:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-xl transition flex items-center justify-center space-x-2 text-sm whitespace-nowrap">
+                        <i data-lucide="file-spreadsheets" class="w-5 h-5"></i>
+                        <span>Получить официальное КП</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SRO Licences & Certificates / СРО и сертификаты -->
+    <section id="sro" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 text-blue-900 font-bold uppercase tracking-wider text-xs mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>Разрешительная документация</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    Лицензии и аккредитации ООО «ССК»
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm">
+                    Компания имеет все необходимые допуски СРО на осуществление проектирования и строительства особо опасных объектов.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition text-center">
+                    <div class="w-12 h-12 bg-blue-900 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="award" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Выписка СРО Строителей</h4>
+                    <p class="text-xs text-slate-500">Работы до 10 млрд руб.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition text-center">
+                    <div class="w-12 h-12 bg-blue-900 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="file-check" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Выписка СРО Проектировщиков</h4>
+                    <p class="text-xs text-slate-500">Разработка ПД и РД</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition text-center">
+                    <div class="w-12 h-12 bg-blue-900 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Сертификат ISO 9001:2015</h4>
+                    <p class="text-xs text-slate-500">Менеджмент качества</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition text-center">
+                    <div class="w-12 h-12 bg-blue-900 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="flame" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">Лицензия МЧС</h4>
+                    <p class="text-xs text-slate-500">Монтаж огнезащиты</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-amber-500 font-bold uppercase tracking-wider text-xs mb-3">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>Контакты</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-6">
+                        Отдел генподряда ООО «ССК»
+                    </h2>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Свяжитесь с нами для обсуждения параметров объекта, отправки технического задания или организации встречи в нашем офисе.
+                    </p>
+
+                    <div class="space-y-6 text-sm">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-blue-900/80 border border-blue-700/50 text-amber-400 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Адрес головного офиса</div>
+                                <div class="text-slate-400 text-xs mt-0.5">г. Новосибирск, ул. Сибирская, д. 57, офис 402</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-blue-900/80 border border-blue-700/50 text-amber-400 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Телефоны связи</div>
+                                <div class="text-slate-400 text-xs mt-0.5">
+                                    <a href="tel:+73832304590" class="hover:text-amber-400 font-semibold text-white">+7 (383) 230-45-90</a> — Приемная<br>
+                                    <a href="tel:+73832304591" class="hover:text-amber-400">+7 (383) 230-45-91</a> — Тендерный отдел
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-blue-900/80 border border-blue-700/50 text-amber-400 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Электронная почта</div>
+                                <div class="text-slate-400 text-xs mt-0.5">
+                                    <a href="mailto:info@ssk-sib.ru" class="hover:text-amber-400">info@ssk-sib.ru</a> — Общие вопросы<br>
+                                    <a href="mailto:tender@ssk-sib.ru" class="hover:text-amber-400">tender@ssk-sib.ru</a> — Отправить ТЗ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-slate-950 p-8 rounded-3xl border border-slate-800 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-2">Заявка на расчет объекта</h3>
+                    <p class="text-slate-400 text-xs mb-6">Заполните форму, и мы оперативно подготовим предложение.</p>
+
+                    <form @submit.prevent="submitForm()" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">ФИО / Название компании *</label>
+                            <input type="text" required placeholder="ООО 'Завод Импульс'" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Телефон для связи *</label>
+                            <input type="tel" required placeholder="+7 (___) ___-__-__" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Краткая информация о проекте</label>
+                            <textarea rows="3" placeholder="Укажите вид работ, площадь, местоположение объекта..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl transition text-sm">
+                            Отправить ТЗ в ООО «ССК»
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-xs border-t border-slate-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-8 mb-8">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <div class="w-10 h-10 bg-amber-500 text-slate-950 font-black rounded-lg flex items-center justify-center text-xs">
+                        ССК
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-base">ООО «Строительная Сибирская Компания»</div>
+                        <div class="text-[10px] text-slate-500">ИНН: 5406123456 / ОГРН: 1085406000000</div>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 text-slate-300 font-semibold">
+                    <a href="#about" class="hover:text-amber-400">О компании</a>
+                    <a href="#services" class="hover:text-amber-400">Услуги</a>
+                    <a href="#projects" class="hover:text-amber-400">Объекты</a>
+                    <a href="#contacts" class="hover:text-amber-400">Контакты</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center text-slate-500">
+                <div>© 2026 ООО «Строительная Сибирская Компания» (ССК). Все права защищены.</div>
+                <div class="mt-4 sm:mt-0">Сделано с высокими стандартами промышленного инжиниринга.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Universal Callback Modal Dialog -->
+    <div x-show="modalOpen" x-transition class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" style="display: none;">
+        <div class="bg-slate-900 border border-slate-800 text-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button @click="modalOpen = false" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h3 class="text-xl font-bold mb-1" x-text="modalSubject">Заказать звонок</h3>
+            <p class="text-slate-400 text-xs mb-6">Оставьте контакты для связи с техническим отделом ООО «ССК».</p>
+
+            <form @submit.prevent="submitModalForm()" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Ваше имя *</label>
+                    <input type="text" required placeholder="Иван" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Телефон *</label>
+                    <input type="tel" required placeholder="+7 (___) ___-__-__" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl transition text-sm">
+                    Отправить запрос
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div x-show="toastOpen" x-transition class="fixed bottom-6 right-6 bg-amber-500 text-slate-950 px-6 py-4 rounded-xl shadow-2xl font-bold flex items-center space-x-3 z-50" style="display: none;">
+        <i data-lucide="check-circle" class="w-6 h-6"></i>
+        <span x-text="toastMessage">Сообщение успешно отправлено!</span>
+    </div>
+
+    <!-- Application Alpine Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        function sskApp() {
+            return {
+                mobileMenuOpen: false,
+                modalOpen: false,
+                modalSubject: 'Заказать звонок',
+                toastOpen: false,
+                toastMessage: '',
+
+                openModal(subject) {
+                    this.modalSubject = subject || 'Заказать звонок';
+                    this.modalOpen = true;
+                },
+
+                showToast(msg) {
+                    this.toastMessage = msg;
+                    this.toastOpen = true;
+                    setTimeout(() => {
+                        this.toastOpen = false;
+                    }, 4000);
+                },
+
+                submitForm() {
+                    this.showToast('Заявка успешно отправлена в ООО «ССК»!');
+                },
+
+                submitModalForm() {
+                    this.modalOpen = false;
+                    this.showToast('Ваш запрос принят. Инженер перезвонит вам!');
+                }
+            }
+        }
+
+        function calculator() {
+            return {
+                pricePerM2: 19000,
+                area: 2500,
+                extraCoef: 1,
+
+                get totalCost() {
+                    return Math.round(this.pricePerM2 * this.area * this.extraCoef);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
